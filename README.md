@@ -1,14 +1,20 @@
-# linters - an introduction to static code analysis
+# linters: a community wiki for improving code quality
 
 # What is a linter?
 
-Originally, `lint` was a tool for scanning `.c` code for additional, stricter warnings. By statically analyzing the code itself before compilation, programmers could maintain a higher level of code discipline, increasing the reliability of the code in multiple compilers and environments.
+Originally, `lint` was a tool for scanning C code for potentially risky lines of code.
 
-As time went on, static code analysis was eclipsed by dynamic analysis: [unit tests](https://en.wikipedia.org/wiki/Unit_test), that examine how code behaves for different inputs and corner cases.
+The C compiler already includes some checks for risky code, such as scanning to making sure that function signatures match. And unit testing adds dynamic checks to verify the behavior of a running program. Beyond these checks, `lint` adds even more checks, that neither the compiler nor the tests scan.
+
+By *statically* analyzing the code itself before compilation, programmers could maintain a higher level of code discipline, increasing the reliability of the code in multiple compilers and environments.
+
+As time went on, static code analysis was nearly eclipsed in attention, by dynamic analysis: [unit tests](https://en.wikipedia.org/wiki/Unit_test), that examine how code behaves for different inputs and corner cases. But the linting practice has restored, and spread to more languages--C++ and beyond.
 
 Today, linters are used to supplement unit tests, serving primarily as low priority style checkers. Linters are being written for many programming languages and document formats, detailed below.
 
 [Wikipedia:List of tools for static analysis](http://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis)
+
+This document often interprets the term "linter" in a wide sense, to include resources for SAST, SCA, memory management validators, code formatters, and style guides.
 
 # Linters
 
@@ -16,17 +22,22 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 ## *
 
-[check-all-the-things](https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git/plain/doc/README) is a command-line tool for automatically running many static analysis and similar tools over packages and upstream codebases.
-
 [anorack](https://github.com/jwilk/anorack) is a specialized spell-checker that finds incorrect indefinite articles.
-
-[aspelllint](https://github.com/mcandre/aspelllint) provides spell checking for large projects.
 
 [astyle](http://astyle.sourceforge.net/) can help enforce a uniform coding style in a large software project.
 
-[cowl](https://github.com/mcandre/cowl) identifies lines wider than n columns (typically 80), with help from `grep`.
+[check-all-the-things](https://anonscm.debian.org/cgit/collab-maint/check-all-the-things.git/plain/doc/README) is a command-line tool for automatically running many static analysis and similar tools over packages and upstream codebases.
+
+[checkov](https://www.checkov.io/) scans cloud resources for CVE's, including Kubertes and Terraform projects.
+
+[cicada](https://github.com/mcandre/cicada) scans environments for software components at risk of falling off of LTS security support timelines.
+
+
+[Code Climate](https://codeclimate.com/) is a paid web service for automatically generating code quality reports.
 
 [eclint](https://github.com/jedmao/eclint) can derive the code style used in a project, and save it as a dotfile for use in other projects.
+
+[driftwood](https://github.com/trufflesecurity/driftwood) looks up private keys in common registries.
 
 [editorconfig](http://editorconfig.org/) is an editor-agnostic configuration system for code styling.
 
@@ -34,15 +45,9 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 [editorconfig-tools](https://www.npmjs.com/search?q=editorconfig-tools) is a command line linter against editorconfig rules.
 
-[enlint](https://github.com/mcandre/enlint) helps identify strangely encoded text files, with help from programs like Unix `find` and `enca`.
-
 [dotenv-linter](https://github.com/wemake-services/dotenv-linter) finds errors and stylistic violations in `.env` files.
 
-[gtdlint](https://github.com/mcandre/gtdlint) identifies TODO notes left in code comments, with help from `grep`.
-
-[lili](https://github.com/mcandre/lili) scans projects for strange line endings.
-
-[line-detector](https://github.com/mcandre/line-detector) identifies line ending formats.
+[KICS](https://kics.io/) scans Docker and Kubernetes resources.
 
 [lint-spaces](https://github.com/schorfES/node-lintspaces) checks line endings and indentation.
 
@@ -68,9 +73,13 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 [MSDN Library: Design Guidelines for Class Library Developers](http://msdn.microsoft.com/en-us/library/czefa0ke%28VS.71%29.aspx) presents guidelines for .NET library developers.
 
-[Code Climate](https://codeclimate.com/) is a paid web service for automatically generating code quality reports.
+[sunshine](https://github.com/mcandre/sunshine) validates chmod permissions, such as for SSH files.
+
+[trufflehog](https://github.com/trufflesecurity/trufflehog) reports credential exposure.
 
 [Vale](https://github.com/errata-ai/vale) validates English text against a wide variety of prebuilt style guides, and is easily and highly configurable.
+
+[vuls](https://vuls.io/) scans assorted computing environments for CVE's.
 
 [Web Package Update Checker](https://github.com/fulldecent/web-puc) validates web projects to ensure they use the latest available versions of web packages (like Bootstrap, Font Awesome, JQuery).
 
@@ -118,7 +127,7 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 g++, part of [gcc](http://gcc.gnu.org/), offers additional checks through its `-Wall` and `-Wextra` options. g++ also includes a `-Weffc++` option to check against rules in Effective C++.
 
-[cpplint](https://pypi.python.org/pypi/cpplint/) is provided as part of the `google-styleguide`.
+[cpplint](https://pypi.python.org/pypi/cpplint/) is provided as part of the `google-styleguide`. Note that cpplint is a Python tool, which means you would also want to run Python SCA tools on all environments that install cpplint.
 
 [nsiqcppstyle](https://code.google.com/p/nsiqcppstyle/) is a South Korean C++ style checker.
 
@@ -139,6 +148,8 @@ g++, part of [gcc](http://gcc.gnu.org/), offers additional checks through its `-
 [Gendarme](http://www.mono-project.com/docs/tools+libraries/tools/gendarme/) is a .NET Static analysis tool created by the mono team. Gendarme enforces best practices, and compatibility with the mono runtime.
 
 [FxCop](https://en.wikipedia.org/wiki/FxCop) is a .NET Static analysis tool created at microsoft. FxCop enforces best practices.
+
+[roslyn-analyzers](https://github.com/dotnet/roslyn-analyzers) is a collection of static analyzers developed by Microsoft with the Roslyn APIs.
 
 [C# Coding Conventions](http://msdn.microsoft.com/en-us/library/vstudio/ff926074.aspx) is a document detailing Microsoft's recommended patterns for C# code.
 
@@ -185,6 +196,10 @@ Linux .conf configuration files may vary in format, but many popular services of
 ### dhcpd
 
 `dhcpd (-t -cf) | (-T -lf)`
+
+### Homebrew
+
+`brew doctor`
 
 ### Lighttp
 
@@ -271,6 +286,26 @@ eval `dbus-launch --auto-syntax` && \
 ### vsftpd
 
 `vsftpd -olisten=NO`
+
+## Ansible
+
+[ansible-later](https://ansible-later.geekdocs.de/) checks Ansible playbooks.
+
+[ansible-lint](https://ansible-lint.readthedocs.io/) is a classic Ansible linter.
+
+[Lockdown](https://www.lockdownenterprise.com/) provides recommendations for securing Ansible playbooks.
+
+[steampunk-spotter](https://pypi.org/project/steampunk-spotter/) offers additional checks for Ansible playbooks.
+
+## Arch
+
+[arch-audit](https://github.com/ilpianista/arch-audit) generates CVE reports for Arch Linux.
+
+## BSD
+
+[pkg-audit](https://man.freebsd.org/cgi/man.cgi?query=pkg-audit&sektion=8&n=1) generates CVE reports for FreeBSD, DragonflyBSD, and HardenedBSD.
+
+[pkg_admin](https://man.netbsd.org/pkg_admin.1) provides an `audit` subcommand for generating CVE reports on NetBSD.
 
 ## Coq
 
@@ -366,13 +401,13 @@ The standard `go` command offers `go fmt` and `go vet` for styling and checking 
 
 [megacheck](https://github.com/dominikh/go-tools/tree/master/cmd/megacheck) runs staticcheck, gosimple, and unused.
 
-[staticcheck](https://github.com/dominikh/go-tools/tree/master/cmd/staticcheck) adds additional checks compared to the built-in `go vet` tool.
+[staticcheck](https://staticcheck.io/) adds additional checks compared to the built-in `go vet` tool.
 
 [gosimple](https://github.com/dominikh/go-tools/tree/master/cmd/gosimple) recommends more idiomatic code forms.
 
-[unused](https://github.com/dominikh/go-tools/tree/master/cmd/unused) reports some unused Go code elements.
+[unconvert](https://github.com/mdempsky/unconvert) detects redundant conversions.
 
-[gometalinter](https://github.com/alecthomas/gometalinter) incorporates several linters in one, though one sub-linter `gotype` appears to be broken for `vendor/`ed Go 1.5+ code, so ensure that gotype is disabled, such as with `gometalinter --disable=gotype`.
+[unused](https://github.com/dominikh/go-tools/tree/master/cmd/unused) reports some unused Go code elements.
 
 ## Groovy
 
@@ -394,31 +429,25 @@ The standard `go` command offers `go fmt` and `go vet` for styling and checking 
 
 ## Java
 
+[Android lint](http://tools.android.com/tips/lint) checks Android source files for potential bugs and optimization improvements for correctness, security, performance, usability, accessibility, and internationalization.
+
+[CheckStyle](http://checkstyle.sourceforge.net/), with decent CLI support, as well as decent Maven support, through [maven-checkstyle-plugin](http://maven.apache.org/plugins/maven-checkstyle-plugin/). Checkstyle also supports identifying undocumented code, through its [JavaDoc](http://checkstyle.sourceforge.net/config_javadoc.html) settings.
+
+[Error-prone](https://github.com/google/error-prone) catches common Java mistakes as compile-time errors.
+
+[FindBugs](http://findbugs.sourceforge.net/) is an old Java linter, but has kept up with Java advances (for example, by offering a standard Gradle plugin).
+
+[google-java-format](https://github.com/google/google-java-format) formats Java code according to the Google Style Guide.
+
+[Infer](http://fbinfer.com/) is a static program analyzer for Java, C, and Objective-C, written in OCaml.
+
 [javac](http://www.oracle.com/technetwork/java/javase/downloads/index.html) offers a `-Xlint` option to print additional warnings. The [maven-compiler-plugin](https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html) can be configured to automatically pass `-Xlint` to the underlying Java compiler every time a project is built.
 
 In Java 8, javac will feature an `-Xdoclint` option to identify undocumented code.
 
-[CheckStyle](http://checkstyle.sourceforge.net/), with decent CLI support, as well as decent Maven support, through [maven-checkstyle-plugin](http://maven.apache.org/plugins/maven-checkstyle-plugin/). Checkstyle also supports identifying undocumented code, through its [JavaDoc](http://checkstyle.sourceforge.net/config_javadoc.html) settings.
-
-[FindBugs](http://findbugs.sourceforge.net/) is an old Java linter, but has kept up with Java advances (for example, by offering a standard Gradle plugin).
-
 [PMD](http://pmd.sourceforge.net/) detects flaws and duplicated code.
 
-[Error-prone](https://github.com/google/error-prone) catches common Java mistakes as compile-time errors.
-
-[Android lint](http://tools.android.com/tips/lint) checks Android source files for potential bugs and optimization improvements for correctness, security, performance, usability, accessibility, and internationalization.
-
-[Infer](http://fbinfer.com/) is a static program analyzer for Java, C, and Objective-C, written in OCaml.
-
 ## JavaScript / Node.js
-
-[ESLint](http://eslint.org) is a pluggable and configurable javascript linter that aims to fix the non-extensibility issues of JSHint and JSLint.
-
-[JSHint](http://jshint.com/) is far and away the best modern linter available. It's simultaneously easy to use, and highly customizable; offering global and directory specific `.jshintrc` files for rule configuration; and global and directory specific `.jshintignore` files for ignoring certain files and directories, trimming down `jshint`'s output to exactly what you want to see.
-
-[JSLint](http://jslint.com/) helps coders match the code style described in [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/).
-
-[JSLint Errors](http://linterrors.com/js) explains warnings you may see from JSHint or JSLint.
 
 [CLosure Compiler](https://developers.google.com/closure/) refactors code to improve performance.
 
@@ -428,7 +457,19 @@ In Java 8, javac will feature an `-Xdoclint` option to identify undocumented cod
 
 [CoffeeScript](http://coffeescript.org/) is a compiles-to-JavaScript language designed to enforce good JavaScript coding habits at compiler level.
 
+[ESLint](http://eslint.org) is a pluggable and configurable javascript linter that aims to fix the non-extensibility issues of JSHint and JSLint.
+
+[JSHint](http://jshint.com/) is far and away the best modern linter available. It's simultaneously easy to use, and highly customizable; offering global and directory specific `.jshintrc` files for rule configuration; and global and directory specific `.jshintignore` files for ignoring certain files and directories, trimming down `jshint`'s output to exactly what you want to see.
+
+[JSLint](http://jslint.com/) helps coders match the code style described in [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742/).
+
+[JSLint Errors](http://linterrors.com/js) explains warnings you may see from JSHint or JSLint.
+
 [npm-package-json-lint](https://github.com/tclindner/npm-package-json-lint) is a configurable linter to enforce standards in npm package.json files.
+
+[rslint](https://rslint.org/) is a fast JavaScript linter.
+
+[standardjs](https://standardjs.com/) is a JavaScript linter and formatter.
 
 ## JPEG
 
@@ -454,6 +495,8 @@ In Java 8, javac will feature an `-Xdoclint` option to identify undocumented cod
 
 [luac](http://www.lua.org/manual/4.0/luac.html) offers a built-in `-p` option for syntax validation..
 
+[luacheck](https://github.com/mpeterv/luacheck) is a Lua linter.
+
 [lualint](https://github.com/philips/lualint) is an early Lua linter.
 
 [lua-checker](https://code.google.com/p/lua-checker/) is another old Lua linter.
@@ -468,13 +511,15 @@ Ironically, `make -n` would fail as a `lint:` task if the Makefile *does* happen
 
 make also offers a `--warn-undefined-variables` flag, often paired with `-n`, for warning when make variables are referenced but not defined.
 
-[checkmake](https://github.com/mrtazz/checkmake) provides experimental analysis for Makefiles.
+[checkmake](https://github.com/mrtazz/checkmake) provides experimental analysis for makefiles.
 
-[mint](https://github.com/softprops/mint) is another linter for Makefiles.
+[unmake](https://github.com/mcandre/unmake) is a POSIX makefile linter focusing on portability.
 
 ## Markdown
 
-[remark](https://github.com/remarkjs/remark-lint) checks markdown files for various errors.
+[markdownlint](https://github.com/DavidAnson/markdownlint) enforces standards for Markdown and CommonMark files via Node.js or [Ruby](https://github.com/markdownlint/markdownlint)
+
+[remark](https://github.com/remarkjs/remark-lint) checks Markdown files for various errors.
 
 ## MP3
 
@@ -497,6 +542,8 @@ make also offers a `--warn-undefined-variables` flag, often paired with `-n`, fo
 [fpc](http://www.freepascal.org/) offers a `-vw` flag to show additional warnings.
 
 ## Perl
+
+[cpan-audit](https://metacpan.org/dist/CPAN-Audit/view/script/cpan-audit) scans Perl projects for CVE's.
 
 [perl](http://www.perl.org/) offers extra warnings through the `use warnings;` (`#!/usr/bin/env perl -w`) and `use strict;` options.
 
@@ -532,25 +579,31 @@ make also offers a `--warn-undefined-variables` flag, often paired with `-n`, fo
 
 [puppet-lint](http://puppet-lint.com/) checks Puppet scripts for proper style.
 
+[vulnerability](https://forge.puppet.com/modules/enterprisemodules/vulnerability/readme) checks for Puppet CVE's.
+
 ## Python
 
-[PyLint](http://www.pylint.org/) is fast and customizable.
+[bandit](https://github.com/openstack/bandit) security focused Python static analyzer. Your mileage may vary, regarding the usefulness of its warnings. (For example, if your application intends to open an SSH connection, then it is not particularly helpful for bandit to complain about open SSH connections.)
 
-[PyFlakes](https://pypi.python.org/pypi/pyflakes) offers few configuration options.
-
-[PyChecker](http://pychecker.sourceforge.net/) requires executing code in order to analyze it.
+[dlint](https://github.com/dlint-py/dlint)) is another security focused analyzer.
 
 [flake8](https://pypi.python.org/pypi/flake8) is a meta linter for Python, including PyFlakes, pep8, and McCabe.
 
 [flake8-quotes](https://github.com/zheller/flake8-quotes) is a plugin for flake8 that enforces single vs double quotes.
 
-[bandit](https://github.com/openstack/bandit) security focused Python static analyzer. Your mileage may vary, regarding the usefulness of its warnings. (For example, if your application intends to open an SSH connection, then it is not particularly helpful for bandit to complain about open SSH connections.)
-
 [pep8](https://pypi.python.org/pypi/pep8/) checks Python code for PEP8 conformance.
 
 [pep257](https://pypi.python.org/pypi/pep257/) checks Python code for PEP257 docstring conformance.
 
+[PyChecker](http://pychecker.sourceforge.net/) requires executing code in order to analyze it.
+
+[PyLint](http://www.pylint.org/) is fast and customizable.
+
+[PyFlakes](https://pypi.python.org/pypi/pyflakes) offers few configuration options.
+
 [Python Style Guide](http://www.python.org/doc/essays/styleguide/) is a collection of documents for community standards for Python code style.
+
+[refurb](https://github.com/dosisod/refurb) recommends Python idioms.
 
 [safety](https://pypi.org/project/safety/) identifies installed pip packages known to include vulnerabilities.
 
@@ -590,11 +643,13 @@ CRAN has a [lint](http://cran.r-project.org/web/packages/lint/index.html) packag
 
 [brakeman](https://github.com/presidentbeef/brakeman) is a linter for [Ruby on Rails](http://rubyonrails.org/) projects.
 
-[pelusa](https://github.com/codegram/pelusa) is a linter for specifically [Rubinius](http://rubini.us/) Ruby code.
+[fasterer](https://github.com/DamirSvrtan/fasterer) provides performance tips.
 
 [flog](http://ruby.sadi.st/Flog.html) identifies the most complex code in your codebase.
 
 [churn](https://github.com/danmayer/churn) looks at version control history to look for frequently changing code, often a sign of poor coding.
+
+[laser](https://github.com/michaeledgar/laser) provides basic detection for logic errors.
 
 [metric_fu](https://github.com/metricfu/metric_fu) scans with a suite of Ruby linters.
 
@@ -606,11 +661,19 @@ CRAN has a [lint](http://cran.r-project.org/web/packages/lint/index.html) packag
 
 [ruby-lint](https://github.com/YorickPeterse/ruby-lint) relies on the pure Ruby [parser](https://rubygems.org/gems/parser), so it may lag behind in supported Ruby version syntaxes.
 
+[rubycritic](https://github.com/whitesmith/rubycritic) provides HTML and CLI linting.
+
+[standard](https://github.com/testdouble/standard) provides a Ruby formatter.
+
 ## Rust
 
 [rustc](http://www.rust-lang.org/), the Rust compiler, offers a `-Wall` option for additional warnings.
 
 [clippy](https://github.com/rust-lang-nursery/rust-clippy) is a Rust linter.
+
+[cargo-audit](https://crates.io/crates/cargo-audit) scans Rust dependencies for vulnerabilities.
+
+[rustfmt](https://github.com/rust-lang/rustfmt) for styling.
 
 ## Sass
 
@@ -644,9 +707,9 @@ Note that `sh -n` on many systems actually expands to `bash -n`, `ksh -n`, etc. 
 
 [Shellcheck](http://www.shellcheck.net/) is a bash linter written in Haskell.
 
-[checkbashisms.rb](http://manpages.ubuntu.com/manpages/xenial/en/man1/checkbashisms.1.html) is a sh linter that reports bashisms.
+[checkbashisms.rb](http://manpages.ubuntu.com/manpages/xenial/en/man1/checkbashisms.1.html) is an unmaintained sh linter that reports bashisms. Because it is unmaintained, it features an inverted ROC curve.
 
-[Bashate](https://pypi.python.org/pypi/bashate/) is a pep8-like linter for bash scripts.
+[bashate](https://pypi.python.org/pypi/bashate/) is a pep8-like linter for bash scripts. Note that bashate is a Python tool, which means you would also want to run Python SCA tools on all environments that install bashate.
 
 [shfmt](https://github.com/mvdan/sh) provides consistent styling for shell scripts.
 
@@ -664,6 +727,16 @@ Note that `sh -n` on many systems actually expands to `bash -n`, `ksh -n`, etc. 
 
 [swiftlint](https://github.com/realm/SwiftLint) encourages better Swift style
 
+## Terraform
+
+`terraform validate` provides built-in suport for basic syntactical correctness.
+
+[terrascan](https://runterrascan.io/) scans Terraform CVE's.
+
+[tflint](https://github.com/terraform-linters/tflint) checks Terraform plans.
+
+[tfsec](https://github.com/aquasecurity/tfsec) scans Terraform CVE's.
+
 ## Travis
 
 [travis-lint](https://github.com/travis-ci/travis-lint) checks `.travis.yml` for errors.
@@ -678,7 +751,7 @@ Note that `sh -n` on many systems actually expands to `bash -n`, `ksh -n`, etc. 
 
 ## YAML
 
-[yamllint](https://github.com/adrienverge/yamllint) is a syntax checker and linter for YAML source.
+[yamllint](https://github.com/adrienverge/yamllint) is a syntax checker and linter for YAML source. Note that yamllint is a Python tool, which means you would also want to run Python SCA tools on all environments that install yamllint.
 
 # Continuous Integration
 
@@ -692,4 +765,5 @@ A [make](https://www.gnu.org/software/make/) task can bundle several linters tog
 
 # See Also
 
-https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
+* [Awesome Linters](https://github.com/caramelomartins/awesome-linters)
+* [Wikipedia List of tools for static code analysis](https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis)
