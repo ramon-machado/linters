@@ -55,8 +55,6 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 [proselint](https://github.com/amperser/proselint/) is a linter for usage and style errors in English prose.
 
-[sloccount](http://www.dwheeler.com/sloccount/) calculates sources lines of code and extrapolates project man-hours and development cost based on industry averages.
-
 [Sonarqube](http://www.sonarqube.org/) is a cross-programming language linting system.
 
 [Phabricator Contributing Guide](http://www.phabricator.com/docs/phabricator/article/Contributor_Introduction.html#suggested-reading) offers coding standards generally, as well as for PHP, and JavaScript code specifically.
@@ -85,6 +83,14 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 [write-good](https://github.com/btford/write-good) validates english prose with the aim of helping developers write better code.
 
+## SLOC
+
+[sloccount](http://www.dwheeler.com/sloccount/) is an older line counter.
+
+[cloc](https://github.com/AlDanial/cloc) is a newer line counter with support for more programming languages.
+
+[wc](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/wc.html) is a line counter for UNIX systems.
+
 ## Android
 
 [lint](http://developer.android.com/tools/help/lint.html) is a tool for static analysis of Android projects.
@@ -101,7 +107,7 @@ Many compilers include an option like `-Wall` to turn on warnings, `-Wextra` for
 
 [splint](http://lclint.cs.virginia.edu/) has largely replaced the old `lint` tool, offering the same old checks, as well as additional security checks.
 
-[lint](http://www.unix.com/man-page/FreeBSD/1/lint) the original.
+[lint](https://en.wikipedia.org/wiki/Lint_%28software%29) the original C static analysis tool.
 
 [gcc](http://gcc.gnu.org/) offers additional warnings, through its `-Wall` and `-Wextra` options.
 
@@ -341,6 +347,8 @@ eval `dbus-launch --auto-syntax` && \
 
 ## Docker
 
+[Docker First Aid Kit](https://github.com/mcandre/docker-first-aid-kit) provides performance and general advice for Docker newbies.
+
 [dockerlint](https://www.npmjs.com/package/dockerlint)
 
 ## Elisp
@@ -383,13 +391,17 @@ eval `dbus-launch --auto-syntax` && \
 
 [fortranlint](http://stellar.cleanscape.net/products/fortranlint/)
 
+## GIF
+
+[buttery](https://github.com/mcandre/buttery) is a GIF loop editor, with an option to validate basic GIF format file integrity.
+
 ## Go
 
 The standard `go` command offers `go fmt` and `go vet` for styling and checking package integrity.
 
 [goimports](https://godoc.org/golang.org/x/tools/cmd/goimports) supplements `go fmt` by organizing imports.
 
-[golint](https://github.com/bytbox/golint) was an early stage Go linter.
+[golint](https://github.com/bytbox/golint) was an early stage Go linter, since deprecated in favor of staticcheck.
 
 [golang/lint](https://github.com/golang/lint)
 
@@ -507,11 +519,7 @@ In Java 8, javac will feature an `-Xdoclint` option to identify undocumented cod
 
 make offers a `-n` dry run option, though sometimes commands are still printed. Use `make -n 1>/dev/null` to suppress this output. Of course, this represents UNIX sh syntax, so redirect stdout to the null device in Windows syntax with `1>NUL` when in Windows.
 
-Ironically, `make -n` would fail as a `lint:` task if the Makefile *does* happen to contain syntax errors. If this paradox bothers you, consider linting this Makefile from a separate Makefile, process, build system, etc. Or realize that you will receive an appropriate exist status either way!
-
-make also offers a `--warn-undefined-variables` flag, often paired with `-n`, for warning when make variables are referenced but not defined.
-
-[checkmake](https://github.com/mrtazz/checkmake) provides experimental analysis for makefiles.
+GNU make offers an additional `--warn-undefined-variables` flag to check for... undefined variables.
 
 [unmake](https://github.com/mcandre/unmake) is a POSIX makefile linter focusing on portability.
 
@@ -566,6 +574,10 @@ make also offers a `--warn-undefined-variables` flag, often paired with `-n`, fo
 [PEAR Coding Standards](http://pear.php.net/manual/en/standards.php) is a collection of documents detailing community standards for PHP code style.
 
 [CodeIgniter General Style and Syntax](http://ellislab.com/codeigniter/user-guide/general/styleguide.html) is another document offering PHP code style tips.
+
+## pkgsrc
+
+[pkglint](https://github.com/rillig/pkglint) checks `pkgsrc` projects, including BSD makefiles, embedded shell commands, and pkgsrc conventions.
 
 ## PNG
 
@@ -666,6 +678,8 @@ CRAN has a [lint](http://cran.r-project.org/web/packages/lint/index.html) packag
 [standard](https://github.com/testdouble/standard) provides a Ruby formatter.
 
 ## Rust
+
+[crev](https://github.com/crev-dev/cargo-crev) assists with dependency reviews.
 
 [rustc](http://www.rust-lang.org/), the Rust compiler, offers a `-Wall` option for additional warnings.
 
